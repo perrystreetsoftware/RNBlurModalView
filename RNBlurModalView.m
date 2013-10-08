@@ -91,6 +91,7 @@ typedef void (^RNBlurCompletion)(void);
     RNCloseButton *_dismissButton;
     RNBlurView *_blurView;
     RNBlurCompletion _completion;
+    __weak id<RNBlurModalViewDelegate>_delegate;
 }
 
 + (UIView*)generateModalViewWithTitle:(NSString*)title message:(NSString*)message {
@@ -144,7 +145,7 @@ typedef void (^RNBlurCompletion)(void);
     if (self = [super initWithFrame:frame]) {
         _dismissButton = [[RNCloseButton alloc] init];
         _dismissButton.center = CGPointZero;
-        [_dismissButton addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
+        [_dismissButton addTarget:self action:@selector(dismissButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         
         self.alpha = 0.f;
         self.backgroundColor = [UIColor clearColor];
@@ -348,6 +349,12 @@ typedef void (^RNBlurCompletion)(void);
 
 }
 
+- (void) dismissButtonTapped
+{
+    if (self.delegate)
+        [self.delegate RNBlurModalViewDidDismiss];
+    [self hide];
+}
 
 - (void)hide {
     [self hideWithDuration:kRNBlurDefaultDuration delay:0 options:kNilOptions completion:self.defaultHideBlock];
@@ -705,5 +712,4 @@ typedef void (^RNBlurCompletion)(void);
     
     return returnImage;
 }
-
 @end

@@ -29,6 +29,10 @@
 extern NSString * const kRNBlurDidShowNotification;
 extern NSString * const kRNBlurDidHidewNotification;
 
+@protocol RNBlurModalViewDelegate <NSObject>
+- (void) RNBlurModalViewDidDismiss;
+@end
+
 @interface RNBlurModalView : UIView
 
 @property (assign, readonly) BOOL isVisible;
@@ -38,6 +42,7 @@ extern NSString * const kRNBlurDidHidewNotification;
 @property (assign) UIViewAnimationOptions animationOptions;
 @property (assign) BOOL dismissButtonRight;
 @property (nonatomic, copy) void (^defaultHideBlock)(void);
+@property (nonatomic, weak) id<RNBlurModalViewDelegate>delegate;
 
 - (id)initWithViewController:(UIViewController*)viewController view:(UIView*)view;
 - (id)initWithViewController:(UIViewController*)viewController title:(NSString*)title message:(NSString*)message;
