@@ -613,7 +613,8 @@ typedef void (^RNBlurCompletion)(void);
 - (UIImage*)screenshot {
     UIGraphicsBeginImageContext(self.bounds.size);
     if( [self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)] ){
-        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+        // http://stackoverflow.com/a/26499814/61072
+        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
     }else{
         [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     }
