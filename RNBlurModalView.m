@@ -336,9 +336,10 @@ typedef void (^RNBlurCompletion)(void);
             self.alpha = 1.f;
             self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.f, 1.f);
         } completion:^(BOOL finished) {
+            self.isVisible = YES;
+
             if (finished) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kRNBlurDidShowNotification object:nil];
-                self.isVisible = YES;
                 if (_completion) {
                     _completion();
                 }
