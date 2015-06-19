@@ -109,7 +109,11 @@ typedef void (^RNBlurCompletion)(void);
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, defaultWidth - padding * 2.f, 0)];
     titleLabel.text = title;
-    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f];
+
+    UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
+    UIFontDescriptor *symbolicFontDescriptor = [descriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    titleLabel.font = [UIFont fontWithDescriptor:symbolicFontDescriptor size:17.f];
+
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.shadowColor = [UIColor blackColor];
     titleLabel.shadowOffset = CGSizeMake(0, -1);
@@ -123,7 +127,7 @@ typedef void (^RNBlurCompletion)(void);
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, defaultWidth - padding * 2.f, 0)];
     messageLabel.text = message;
     messageLabel.numberOfLines = 0;
-    messageLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
+    messageLabel.font = [UIFont fontWithDescriptor:descriptor size:17.f];
     messageLabel.textColor = titleLabel.textColor;
     messageLabel.shadowOffset = titleLabel.shadowOffset;
     messageLabel.shadowColor = titleLabel.shadowColor;
